@@ -1,11 +1,32 @@
-import React from 'react'
+import * as React from 'react'
+import Layout from '../components/layout'
+import { graphql } from 'gatsby'
 
-function index() {
+export default function index({data: {directus}}){
   return (
     <div>
-      <h1>Hello world</h1>
+      <Layout pageTitle="Home Page">
+        <h2>Movies faverite</h2>
+        <p>{directus.Movies.map((movies)=>(
+          <p key={movies.id}>{movies.titles}</p>
+          
+        ))}</p>
+
+      </Layout>
     </div>
   )
 }
 
-export default index
+
+export const query = graphql`
+query{
+  directus{
+    Movies{
+      id
+      titles
+    }
+  }
+} 
+`
+
+
